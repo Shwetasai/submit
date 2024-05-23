@@ -3,7 +3,14 @@ from django.db import models
 from django.conf import settings
 
 class CustomUser(AbstractUser):
-    pass
+    MANAGER = 'manager'
+    EMPLOYEE = 'employee'
+    ROLE_CHOICES = [
+        (MANAGER, 'Manager'),
+        (EMPLOYEE, 'Employee'),
+    ]
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=EMPLOYEE)
+
 
 class Task(models.Model):
     task = models.CharField(max_length=255)

@@ -5,7 +5,7 @@ from .models import Task
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email','role']
 
 class TaskSerializer(serializers.ModelSerializer):
     assigner = UserSerializer(read_only=True)
@@ -19,12 +19,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['id', 'username', 'email', 'password']
+        fields = ['id', 'username', 'email', 'password','role']
 
     def create(self, validated_data):
         user = get_user_model().objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password']
+            password=validated_data['password'],
+            role=validated_data.get('role', 'employee') 
         )
         return user
