@@ -4,6 +4,7 @@ from rest_framework import status, permissions
 from django.http import Http404
 from .models import Task, Feedback, CustomUser
 from .serializers import TaskSerializer, RegistrationSerializer, FeedbackSerializer
+from .decorators import admin_required
 
 def get_object_or_404(model, **kwargs):
     try:

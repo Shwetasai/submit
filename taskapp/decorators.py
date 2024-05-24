@@ -1,11 +1,9 @@
-# In your app's decorators.py
 from functools import wraps
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 def admin_required(view_func):
     @wraps(view_func)
-    @login_required
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated:
             return JsonResponse({'message': 'Authentication required!'}, status=401)
@@ -16,7 +14,6 @@ def admin_required(view_func):
 
 def user_required(view_func):
     @wraps(view_func)
-    @login_required
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated:
             return JsonResponse({'message': 'Authentication required!'}, status=401)
