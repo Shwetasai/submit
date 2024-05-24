@@ -70,7 +70,8 @@ class TaskStatusUpdateView(APIView):
 
 class FeedbackView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-
+    
+    @admin_required
     def post(self, request, *args, **kwargs):
         serializer = FeedbackSerializer(data=request.data)
         if serializer.is_valid():
