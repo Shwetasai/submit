@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Task
+from .models import Task,Feedback
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,3 +29,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
             role=validated_data.get('role', 'employee') 
         )
         return user
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    manager = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Feedback
+        fields = ['id', 'task', 'manager', 'feedback', 'created_at']

@@ -23,3 +23,12 @@ class Task(models.Model):
 
     def __str__(self):
         return self.task
+
+class Feedback(models.Model):
+    task = models.ForeignKey(Task, related_name='feedbacks', on_delete=models.CASCADE)
+    manager = models.ForeignKey(CustomUser, related_name='feedback_given', on_delete=models.CASCADE)
+    feedback = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Feedback for {self.task.task} by {self.manager.username}'
